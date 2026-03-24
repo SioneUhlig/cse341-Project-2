@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // ==========================================
-// TEst for the front end to verify that it was working : route (for frontend demo)
+// Route for frontend demo
 // ==========================================
 router.get('/professional', (req, res) => {
   res.json({
@@ -25,7 +25,9 @@ router.get('/professional', (req, res) => {
     }
   });
 });
+
 router.use('/contacts', require('./contacts'));
+router.use('/books', require('./books'));
 router.use('/', require('./swagger'));
 
 module.exports = router;

@@ -1,153 +1,201 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Contacts Api",
-    "description": "Contacts Api",
+    "title": "Contacts & Books API",
+    "description": "API for managing contacts and books",
     "version": "1.0.0"
   },
-  "host": "http://localhost:3000/api-docs/",
+  "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "https",
-    "http"
-  ],
+  "schemes": ["https", "http"],
   "paths": {
-    "/professional": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/contacts/": {
       "get": {
-        "tags": [],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["Contacts"],
+        "description": "Get all contacts",
+        "produces": ["application/json"],
         "responses": {
-          "200": {
-            "description": "OK"
-          }
+          "200": { "description": "OK" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "post": {
-        "tags": [],
-        "description": "",
+        "tags": ["Contacts"],
+        "description": "Create a new contact",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
+              "required": ["firstName", "lastName", "username", "email", "favoriteColor", "birthDay"],
               "properties": {
-                "firstName": {
-                  "example": "any"
-                },
-                "lastName": {
-                  "example": "any"
-                },
-                "username": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "favoriteColor": {
-                  "example": "any"
-                },
-                "birthDay": {
-                  "example": "any"
-                }
+                "firstName":     { "type": "string", "example": "John" },
+                "lastName":      { "type": "string", "example": "Doe" },
+                "username":      { "type": "string", "example": "jdoe" },
+                "email":         { "type": "string", "example": "john@example.com" },
+                "favoriteColor": { "type": "string", "example": "blue" },
+                "birthDay":      { "type": "string", "example": "April 17, 1993" }
               }
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request - Validation Error" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/contacts/{id}": {
       "get": {
-        "tags": [],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["Contacts"],
+        "description": "Get a contact by ID",
+        "produces": ["application/json"],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
-     "put": {
-  "tags": [],
-  "description": "",
-  "parameters": [
-    {
-      "name": "id",
-      "in": "path",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "type": "object",
-        "properties": {
-          "firstName": { "example": "any" },
-          "lastName": { "example": "any" },
-          "username": { "example": "any" },
-          "email": { "example": "any" },
-          "favoriteColor": { "example": "any" },
-          "birthDay": { "example": "any" }
-        }
-      }
-    }
-  ],
-  "responses": {
-    "204": { "description": "No Content" },
-    "500": { "description": "Internal Server Error" }
-  }
-},
-      "delete": {
-        "tags": [],
-        "description": "",
+      "put": {
+        "tags": ["Contacts"],
+        "description": "Update a contact by ID",
         "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
           {
-            "name": "id",
-            "in": "path",
+            "name": "body",
+            "in": "body",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "required": ["firstName", "lastName", "username", "email", "favoriteColor", "birthDay"],
+              "properties": {
+                "firstName":     { "type": "string", "example": "John" },
+                "lastName":      { "type": "string", "example": "Doe" },
+                "username":      { "type": "string", "example": "jdoe" },
+                "email":         { "type": "string", "example": "john@example.com" },
+                "favoriteColor": { "type": "string", "example": "green" },
+                "birthDay":      { "type": "string", "example": "April 17, 1993" }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": { "description": "No Content" },
+          "400": { "description": "Bad Request - Validation Error" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "delete": {
+        "tags": ["Contacts"],
+        "description": "Delete a contact by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/books/": {
+      "get": {
+        "tags": ["Books"],
+        "description": "Get all books",
+        "produces": ["application/json"],
+        "responses": {
+          "200": { "description": "OK" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "description": "Create a new book",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "author", "genre", "publishedYear", "isbn"],
+              "properties": {
+                "title":         { "type": "string",  "example": "The Great Gatsby" },
+                "author":        { "type": "string",  "example": "F. Scott Fitzgerald" },
+                "genre":         { "type": "string",  "example": "Fiction" },
+                "publishedYear": { "type": "integer", "example": 1925 },
+                "isbn":          { "type": "string",  "example": "978-0-7432-7356-5" }
+              }
+            }
           }
+        ],
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request - Validation Error" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "description": "Get a book by ID",
+        "produces": ["application/json"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "put": {
+        "tags": ["Books"],
+        "description": "Update a book by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "author", "genre", "publishedYear", "isbn"],
+              "properties": {
+                "title":         { "type": "string",  "example": "The Great Gatsby" },
+                "author":        { "type": "string",  "example": "F. Scott Fitzgerald" },
+                "genre":         { "type": "string",  "example": "Classic" },
+                "publishedYear": { "type": "integer", "example": 1925 },
+                "isbn":          { "type": "string",  "example": "978-0-7432-7356-5" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "400": { "description": "Bad Request - Validation Error" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "description": "Delete a book by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     }
