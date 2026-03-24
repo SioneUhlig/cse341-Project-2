@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Contacts & Books API",
-    "description": "API for managing contacts and books",
+    "title": "Library API",
+    "description": "API for managing library users and books",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -11,8 +11,8 @@
   "paths": {
     "/contacts/": {
       "get": {
-        "tags": ["Contacts"],
-        "description": "Get all contacts",
+        "tags": ["Library Users"],
+        "description": "Get all library users",
         "produces": ["application/json"],
         "responses": {
           "200": { "description": "OK" },
@@ -20,8 +20,8 @@
         }
       },
       "post": {
-        "tags": ["Contacts"],
-        "description": "Create a new contact",
+        "tags": ["Library Users"],
+        "description": "Create a new library user",
         "parameters": [
           {
             "name": "body",
@@ -29,14 +29,14 @@
             "required": true,
             "schema": {
               "type": "object",
-              "required": ["firstName", "lastName", "username", "email", "favoriteColor", "birthDay"],
+              "required": ["firstName", "lastName", "email", "membershipType", "phone", "joinDate"],
               "properties": {
-                "firstName":     { "type": "string", "example": "John" },
-                "lastName":      { "type": "string", "example": "Doe" },
-                "username":      { "type": "string", "example": "jdoe" },
-                "email":         { "type": "string", "example": "john@example.com" },
-                "favoriteColor": { "type": "string", "example": "blue" },
-                "birthDay":      { "type": "string", "example": "April 17, 1993" }
+                "firstName":      { "type": "string",  "example": "Jane" },
+                "lastName":       { "type": "string",  "example": "Doe" },
+                "email":          { "type": "string",  "example": "jane@example.com" },
+                "membershipType": { "type": "string",  "example": "standard" },
+                "phone":          { "type": "string",  "example": "555-123-4567" },
+                "joinDate":       { "type": "string",  "example": "March 1, 2024" }
               }
             }
           }
@@ -50,8 +50,8 @@
     },
     "/contacts/{id}": {
       "get": {
-        "tags": ["Contacts"],
-        "description": "Get a contact by ID",
+        "tags": ["Library Users"],
+        "description": "Get a library user by ID",
         "produces": ["application/json"],
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
@@ -63,8 +63,8 @@
         }
       },
       "put": {
-        "tags": ["Contacts"],
-        "description": "Update a contact by ID",
+        "tags": ["Library Users"],
+        "description": "Update a library user by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           {
@@ -73,14 +73,14 @@
             "required": true,
             "schema": {
               "type": "object",
-              "required": ["firstName", "lastName", "username", "email", "favoriteColor", "birthDay"],
+              "required": ["firstName", "lastName", "email", "membershipType", "phone", "joinDate"],
               "properties": {
-                "firstName":     { "type": "string", "example": "John" },
-                "lastName":      { "type": "string", "example": "Doe" },
-                "username":      { "type": "string", "example": "jdoe" },
-                "email":         { "type": "string", "example": "john@example.com" },
-                "favoriteColor": { "type": "string", "example": "green" },
-                "birthDay":      { "type": "string", "example": "April 17, 1993" }
+                "firstName":      { "type": "string",  "example": "Jane" },
+                "lastName":       { "type": "string",  "example": "Doe" },
+                "email":          { "type": "string",  "example": "jane@example.com" },
+                "membershipType": { "type": "string",  "example": "premium" },
+                "phone":          { "type": "string",  "example": "555-123-4567" },
+                "joinDate":       { "type": "string",  "example": "March 1, 2024" }
               }
             }
           }
@@ -93,8 +93,8 @@
         }
       },
       "delete": {
-        "tags": ["Contacts"],
-        "description": "Delete a contact by ID",
+        "tags": ["Library Users"],
+        "description": "Delete a library user by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],

@@ -1,39 +1,39 @@
 const mongodb = require('../routes/data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const getAllContacts = async () => {
-  const result = await mongodb.getDatabase().collection('contacts').find();
+const getAllUsers = async () => {
+  const result = await mongodb.getDatabase().collection('users').find();
   return result.toArray();
 };
 
-const getContactById = async (id) => {
-  const contactId = new ObjectId(id);
-  const result = await mongodb.getDatabase().collection('contacts').find({ _id: contactId });
-  const contacts = await result.toArray();
-  return contacts[0];
+const getUserById = async (id) => {
+  const userId = new ObjectId(id);
+  const result = await mongodb.getDatabase().collection('users').find({ _id: userId });
+  const users = await result.toArray();
+  return users[0];
 };
 
-const createContact = async (contact) => {
-  return await mongodb.getDatabase().collection('contacts').insertOne(contact);
+const createUser = async (user) => {
+  return await mongodb.getDatabase().collection('users').insertOne(user);
 };
 
-const updateContact = async (id, contact) => {
-  const contactId = new ObjectId(id);
-  return await mongodb.getDatabase().collection('contacts').replaceOne(
-    { _id: contactId },
-    contact
+const updateUser = async (id, user) => {
+  const userId = new ObjectId(id);
+  return await mongodb.getDatabase().collection('users').replaceOne(
+    { _id: userId },
+    user
   );
 };
 
-const deleteContact = async (id) => {
-  const contactId = new ObjectId(id);
-  return await mongodb.getDatabase().collection('contacts').deleteOne({ _id: contactId });
+const deleteUser = async (id) => {
+  const userId = new ObjectId(id);
+  return await mongodb.getDatabase().collection('users').deleteOne({ _id: userId });
 };
 
 module.exports = {
-  getAllContacts,
-  getContactById,
-  createContact,
-  updateContact,
-  deleteContact
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser
 };

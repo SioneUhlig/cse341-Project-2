@@ -29,7 +29,6 @@ const createBook = async (req, res) => {
   //#swagger.tags=['Books']
   const { title, author, genre, publishedYear, isbn } = req.body;
 
-  // Data validation
   if (!title || typeof title !== 'string' || title.trim() === '') {
     return res.status(400).json({ error: 'title is required and must be a non-empty string.' });
   }
@@ -63,7 +62,6 @@ const updateBook = async (req, res) => {
   //#swagger.tags=['Books']
   const { title, author, genre, publishedYear, isbn } = req.body;
 
-  // Data validation
   if (!title || typeof title !== 'string' || title.trim() === '') {
     return res.status(400).json({ error: 'title is required and must be a non-empty string.' });
   }
