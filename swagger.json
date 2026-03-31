@@ -9,10 +9,28 @@
   "basePath": "/",
   "schemes": ["https"],
   "paths": {
+    "/login": {
+      "get": {
+        "tags": ["Authentication"],
+        "description": "Login with GitHub OAuth. Redirects to GitHub for authentication.",
+        "responses": {
+          "302": { "description": "Redirects to GitHub for authentication" }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": ["Authentication"],
+        "description": "Logout current user and redirect to home page.",
+        "responses": {
+          "302": { "description": "Redirects to home page after logout" }
+        }
+      }
+    },
     "/contacts/": {
       "get": {
         "tags": ["Library Users"],
-        "description": "Get all library users",
+        "description": "Get all library users. No authentication required.",
         "produces": ["application/json"],
         "responses": {
           "200": { "description": "OK" },
@@ -21,7 +39,7 @@
       },
       "post": {
         "tags": ["Library Users"],
-        "description": "Create a new library user",
+        "description": "Create a new library user. Requires authentication.",
         "parameters": [
           {
             "name": "body",
@@ -44,6 +62,7 @@
         "responses": {
           "201": { "description": "Created" },
           "400": { "description": "Bad Request - Validation Error" },
+          "401": { "description": "Unauthorized - Must be logged in" },
           "500": { "description": "Internal Server Error" }
         }
       }
@@ -51,7 +70,7 @@
     "/contacts/{id}": {
       "get": {
         "tags": ["Library Users"],
-        "description": "Get a library user by ID",
+        "description": "Get a library user by ID. No authentication required.",
         "produces": ["application/json"],
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
@@ -64,7 +83,7 @@
       },
       "put": {
         "tags": ["Library Users"],
-        "description": "Update a library user by ID",
+        "description": "Update a library user by ID. Requires authentication.",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           {
@@ -88,18 +107,20 @@
         "responses": {
           "204": { "description": "No Content" },
           "400": { "description": "Bad Request - Validation Error" },
+          "401": { "description": "Unauthorized - Must be logged in" },
           "404": { "description": "Not Found" },
           "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
         "tags": ["Library Users"],
-        "description": "Delete a library user by ID",
+        "description": "Delete a library user by ID. Requires authentication.",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
           "200": { "description": "OK" },
+          "401": { "description": "Unauthorized - Must be logged in" },
           "404": { "description": "Not Found" },
           "500": { "description": "Internal Server Error" }
         }
@@ -108,7 +129,7 @@
     "/books/": {
       "get": {
         "tags": ["Books"],
-        "description": "Get all books",
+        "description": "Get all books. No authentication required.",
         "produces": ["application/json"],
         "responses": {
           "200": { "description": "OK" },
@@ -117,7 +138,7 @@
       },
       "post": {
         "tags": ["Books"],
-        "description": "Create a new book",
+        "description": "Create a new book. Requires authentication.",
         "parameters": [
           {
             "name": "body",
@@ -139,6 +160,7 @@
         "responses": {
           "201": { "description": "Created" },
           "400": { "description": "Bad Request - Validation Error" },
+          "401": { "description": "Unauthorized - Must be logged in" },
           "500": { "description": "Internal Server Error" }
         }
       }
@@ -146,7 +168,7 @@
     "/books/{id}": {
       "get": {
         "tags": ["Books"],
-        "description": "Get a book by ID",
+        "description": "Get a book by ID. No authentication required.",
         "produces": ["application/json"],
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
@@ -159,7 +181,7 @@
       },
       "put": {
         "tags": ["Books"],
-        "description": "Update a book by ID",
+        "description": "Update a book by ID. Requires authentication.",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           {
@@ -182,18 +204,20 @@
         "responses": {
           "204": { "description": "No Content" },
           "400": { "description": "Bad Request - Validation Error" },
+          "401": { "description": "Unauthorized - Must be logged in" },
           "404": { "description": "Not Found" },
           "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
         "tags": ["Books"],
-        "description": "Delete a book by ID",
+        "description": "Delete a book by ID. Requires authentication.",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
           "200": { "description": "OK" },
+          "401": { "description": "Unauthorized - Must be logged in" },
           "404": { "description": "Not Found" },
           "500": { "description": "Internal Server Error" }
         }

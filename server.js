@@ -1,7 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv').config();
-const mongoDB = require('./db/connect');
+const mongoDB = require('./routes/data/database');
 const passport = require('passport');
 const session = require('express-session');
 const GitHubStrategy = require('passport-github2').Strategy;
@@ -17,11 +17,8 @@ app
     resave: false,
     saveUninitialized: true,
   }))
-  // This is the basic express session({..}) initialization.
   .use(passport.initialize())
-  // init passport on every route call.
   .use(passport.session())
-  // allow passport to use "express-session".
   .use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
@@ -44,18 +41,24 @@ passport.use(new GitHubStrategy({
     callbackURL: process.env.CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, done) {
-    //User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(null, profile);
-    //});
+    return done(null, profile);
   }
 ));
 
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
 app.get('/', (req, res) => {
-  res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : 'Logged Out');
+  res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.username}` : 'Logged Out');
 });
 
 app.get('/github/callback', passport.authenticate('github', {
-  failureRedirect: '/api-docs', session: false}),
+  failureRedirect: '/api-docs'}),
   (req, res) => {
     req.session.user = req.user;
     res.redirect('/');
@@ -71,7 +74,7 @@ app.get('/logout', (req, res, next) => {
   });
 });
 
-mongoDB.initDb((err, mongoDB) => {
+mongoDB.initDb((err) => {
   if (err) {
     console.log(err);
   } else {
