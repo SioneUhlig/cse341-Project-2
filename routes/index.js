@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// ==========================================
-// Route for frontend demo
-// ==========================================
 router.get('/professional', (req, res) => {
   res.json({
     professionalName: "JANE SMITH",
@@ -28,6 +25,7 @@ router.get('/professional', (req, res) => {
 
 router.use('/contacts', require('./contacts'));
 router.use('/books', require('./books'));
+router.use('/instructors', require('./instructors'));
 router.use('/', require('./swagger'));
 
 module.exports = router;
