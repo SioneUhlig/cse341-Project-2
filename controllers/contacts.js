@@ -27,7 +27,7 @@ const getSingle = async (req, res) => {
 
 const createContact = async (req, res) => {
   //#swagger.tags=['Library Users']
-  const { firstName, lastName, email, membershipType, phone, joinDate } = req.body;
+  const { firstName, lastName, email, membershipType, phone, joinDate, birthday } = req.body;
 
   if (!firstName || typeof firstName !== 'string' || firstName.trim() === '') {
     return res.status(400).json({ error: 'firstName is required and must be a non-empty string.' });
@@ -47,9 +47,12 @@ const createContact = async (req, res) => {
   if (!joinDate || typeof joinDate !== 'string' || joinDate.trim() === '') {
     return res.status(400).json({ error: 'joinDate is required and must be a non-empty string.' });
   }
+  if (!birthday || typeof birthday !== 'string' || birthday.trim() === '') {
+    return res.status(400).json({ error: 'birthday is required and must be a non-empty string.' });
+  }
 
   try {
-    const user = { firstName, lastName, email, membershipType, phone, joinDate };
+    const user = { firstName, lastName, email, membershipType, phone, joinDate, birthday };
     const result = await User.createUser(user);
     if (result.insertedId) {
       res.status(201).json({ id: result.insertedId });
@@ -63,7 +66,7 @@ const createContact = async (req, res) => {
 
 const updateContact = async (req, res) => {
   //#swagger.tags=['Library Users']
-  const { firstName, lastName, email, membershipType, phone, joinDate } = req.body;
+  const { firstName, lastName, email, membershipType, phone, joinDate, birthday } = req.body;
 
   if (!firstName || typeof firstName !== 'string' || firstName.trim() === '') {
     return res.status(400).json({ error: 'firstName is required and must be a non-empty string.' });
@@ -83,9 +86,12 @@ const updateContact = async (req, res) => {
   if (!joinDate || typeof joinDate !== 'string' || joinDate.trim() === '') {
     return res.status(400).json({ error: 'joinDate is required and must be a non-empty string.' });
   }
+  if (!birthday || typeof birthday !== 'string' || birthday.trim() === '') {
+    return res.status(400).json({ error: 'birthday is required and must be a non-empty string.' });
+  }
 
   try {
-    const user = { firstName, lastName, email, membershipType, phone, joinDate };
+    const user = { firstName, lastName, email, membershipType, phone, joinDate, birthday };
     const result = await User.updateUser(req.params.id, user);
     if (result.matchedCount > 0) {
       res.status(204).send();

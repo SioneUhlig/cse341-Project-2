@@ -47,14 +47,15 @@
             "required": true,
             "schema": {
               "type": "object",
-              "required": ["firstName", "lastName", "email", "membershipType", "phone", "joinDate"],
+              "required": ["firstName", "lastName", "email", "membershipType", "phone", "joinDate", "birthday"],
               "properties": {
                 "firstName":      { "type": "string",  "example": "Jane" },
                 "lastName":       { "type": "string",  "example": "Doe" },
                 "email":          { "type": "string",  "example": "jane@example.com" },
                 "membershipType": { "type": "string",  "example": "standard" },
                 "phone":          { "type": "string",  "example": "555-123-4567" },
-                "joinDate":       { "type": "string",  "example": "March 1, 2024" }
+                "joinDate":       { "type": "string",  "example": "March 1, 2024" },
+                "birthday":       { "type": "string",  "example": "April 17, 1993" }
               }
             }
           }
@@ -92,7 +93,7 @@
             "required": true,
             "schema": {
               "type": "object",
-              "required": ["firstName", "lastName", "email", "membershipType", "phone", "joinDate"],
+              "required": ["firstName", "lastName", "email", "membershipType", "phone", "joinDate", "birthday"],
               "properties": {
                 "firstName":      { "type": "string",  "example": "Jane" },
                 "lastName":       { "type": "string",  "example": "Doe" },
